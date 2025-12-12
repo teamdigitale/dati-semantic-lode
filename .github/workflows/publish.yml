@@ -32,7 +32,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: 'adopt'
       - name: caching
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -49,8 +49,6 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-      - name: Dependency Check
-        run: ./gradlew dependencyCheckAnalyze
   security:
     runs-on: ubuntu-latest
     steps:

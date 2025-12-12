@@ -623,7 +623,7 @@
 			<xsl:call-template
 				name="get.entity.type.descriptor">
 				<xsl:with-param name="iri"
-					select="ancestor::element()/(@*:about|@*:ID)" />
+					select="(ancestor::element()[@*:about|@*:ID])[last()]/(@*:about|@*:ID)[1]" />
 			</xsl:call-template>
 			<xsl:if test="exists(dc:title[f:isInLanguage(.)])">
 				<br />

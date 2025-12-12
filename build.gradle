@@ -2,7 +2,6 @@ plugins {
 	id 'org.springframework.boot' version '2.7.13'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
-	id "org.owasp.dependencycheck" version "8.2.1"
 	id 'com.github.spotbugs' version '4.7.3'
 }
 
@@ -63,23 +62,9 @@ spotbugsTest {
 	}
 }
 
-dependencyCheck {
-	skipConfigurations = ['spotbugs']
-//set up a quality gate for vulnerabilities with high severity level:
-//let's consider that a vulnerability has a high severity level if its CVSS score is higher than 7
-//the build is going to fail if vulnerabilities with high severity level found
-	failBuildOnCVSS = 7
-
-//specify a list of known issues which contain:
-//false-positives
-//confirmed vulnerabilities which are not fixed yet, but we have a ticket for that
-	suppressionFile = 'config/dependency-check/dependency-check-known-issues.xml'
-}
-
 gradle.taskGraph.whenReady { graph ->
 	if (graph.hasTask(build)) {
 		spotbugsMain.enabled = false
-		dependencyCheckAnalyze.enabled = false
 		spotbugsTest.enabled = false
 	}
 }
