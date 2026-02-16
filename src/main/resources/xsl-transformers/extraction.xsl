@@ -130,13 +130,10 @@
 	<xsl:template name="htmlhead">
 		<meta content="text/html; charset=utf-8"
 			http-equiv="Content-Type" />
-		<link href="{$css-location}owl.css" rel="stylesheet"
-			type="text/css" />
-		<link href="{$css-location}Primer.css" rel="stylesheet"
-			type="text/css" />
-		<link href="{$css-location}rec.css" rel="stylesheet"
-			type="text/css" />
-		<link href="{$css-location}extra.css" rel="stylesheet"
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link href="{$css-location}bootstrap-italia.min.css"
+			rel="stylesheet" type="text/css" />
+		<link href="{$css-location}lode-bootstrap-italia.css" rel="stylesheet"
 			type="text/css" />
 		<link rel="shortcut icon" href="{$css-location}favicon.ico" />
 		<script src="{$css-location}jquery.js"><!-- Comment for compatibility -->
@@ -178,6 +175,25 @@
 			<xsl:call-template name="htmlhead" />
 		</head>
 		<body>
+			<div class="it-header-wrapper">
+				<div class="it-header-slim-wrapper" style="background-color: #0066cc;">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="it-header-slim-wrapper-content" style="padding: 0.4rem 0;">
+									<span style="color: #fff; font-size: 0.85rem;">
+										Schema - Catalogo Nazionale della Semantica dei Dati
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<main>
+			<div class="container py-4">
+			<div class="row">
+			<div class="col-12 col-lg-10 offset-lg-1">
 			<div class="head">
 				<xsl:choose>
 					<xsl:when test="$titles">
@@ -251,6 +267,16 @@
 				<a href="http://www.essepuntato.it">Silvio Peroni</a>
 				.
 			</p>
+			</div>
+			</div>
+			</div>
+			</main>
+			<footer class="it-footer" style="background-color: #17324d; padding: 1.5rem 0;">
+				<div class="container" style="color: #fff; text-align: center; font-size: 0.85rem;">
+					<span>LODE &#x2014; Live OWL Documentation Environment</span>
+				</div>
+			</footer>
+			<script src="{$css-location}bootstrap-italia.min.js"><!-- Bootstrap Italia JS --></script>
 		</body>
 	</xsl:template>
 

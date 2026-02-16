@@ -1,0 +1,432 @@
+/*
+ * LODE — Bootstrap Italia Bridge CSS
+ *
+ * Maps existing XSLT-generated classes to Bootstrap Italia styling.
+ * This file is loaded AFTER bootstrap-italia.min.css to override defaults
+ * and style LODE-specific elements.
+ */
+
+/* ===== Base layout ===== */
+
+body {
+    background: #fff;
+    background-image: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ===== Header / Ontology metadata ===== */
+
+.head {
+    margin-bottom: 1.5rem;
+}
+
+.head h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #17324d;
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.head dl {
+    margin-bottom: 0.5rem;
+    background: transparent;
+}
+
+.head dt {
+    font-weight: 600;
+    color: #17324d;
+    margin-top: 0.5rem;
+}
+
+.head dd {
+    margin-left: 0;
+    margin-bottom: 0.25rem;
+}
+
+/* ===== Section headings ===== */
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #17324d;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #0066cc;
+}
+
+h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #17324d;
+    margin-top: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #d9dadb;
+}
+
+/* ===== Table of contents ===== */
+
+#toc {
+    background-color: #f6f7f9;
+    border: 1px solid #d9dadb;
+    border-radius: 4px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+#toc h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+#toc ol {
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+}
+
+#toc ol li {
+    margin-bottom: 0.3rem;
+}
+
+#toc a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+#toc a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Entity cards (classes, properties, individuals) ===== */
+
+.entity {
+    border: 1px solid #d9dadb;
+    border-radius: 4px;
+    margin: 1rem 0;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.entity:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.entity h3 {
+    border-bottom: 1px solid #e8e8e8;
+    margin-top: 0;
+}
+
+.entity p {
+    margin-bottom: 0.5rem;
+}
+
+/* ===== Horizontal list (index of classes/properties) ===== */
+
+.hlist {
+    border: 1px solid #d9dadb;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    background-color: #f6f7f9;
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.hlist li {
+    display: inline-block;
+    list-style-type: none;
+    padding: 0.2rem 0.5rem;
+    margin: 0.15rem 0;
+}
+
+.hlist li a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.hlist li a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Type badges (c=class, op=object prop, dp=data prop, etc.) ===== */
+
+.type-c,
+.type-op,
+.type-dp,
+.type-ap,
+.type-ni {
+    cursor: help;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    margin-left: 0.3rem;
+    vertical-align: super;
+    letter-spacing: 0.03em;
+}
+
+.type-c {
+    color: #fff;
+    background-color: #e68a00;
+}
+
+.type-op {
+    color: #fff;
+    background-color: #0066cc;
+}
+
+.type-dp {
+    color: #fff;
+    background-color: #008758;
+}
+
+.type-ap {
+    color: #fff;
+    background-color: #a32d2d;
+}
+
+.type-ni {
+    color: #fff;
+    background-color: #6b4c00;
+}
+
+/* ===== Back to top link ===== */
+
+.backlink {
+    font-size: 0.8rem;
+    float: right;
+    color: #5c6f82;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #d9dadb;
+    border-radius: 4px;
+    background-color: #f6f7f9;
+}
+
+.backlink a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.backlink a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Description blocks ===== */
+
+.description {
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    background-color: #f6f7f9;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+}
+
+.description dl {
+    background-color: transparent;
+    margin-bottom: 0;
+}
+
+.description dt {
+    font-weight: 600;
+    color: #17324d;
+    margin-top: 0.5rem;
+}
+
+.description dd {
+    margin-left: 0;
+}
+
+.description ul {
+    padding-left: 1rem;
+    margin-top: 0;
+}
+
+/* ===== Definition lists (general) ===== */
+
+dl {
+    background: transparent;
+    width: auto;
+    border: none;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+dt {
+    font-weight: 600;
+    color: #17324d;
+    margin-top: 0.4rem;
+}
+
+dd {
+    margin-left: 0;
+    margin-bottom: 0.15rem;
+}
+
+.definedBy {
+    font-size: 0.85rem;
+    color: #5c6f82;
+}
+
+/* ===== Logic keywords ===== */
+
+.logic {
+    color: #6b32a8;
+    font-weight: 700;
+    font-size: 0.9em;
+}
+
+/* ===== Dotted references (external/unresolved) ===== */
+
+.dotted {
+    border-bottom: 1px dotted #5c6f82;
+    color: #5c6f82;
+}
+
+/* ===== Literal values ===== */
+
+.literal {
+    color: #008758;
+    font-style: italic;
+}
+
+/* ===== Comment blocks ===== */
+
+.comment {
+    margin: 0.5rem 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ===== Namespace declarations ===== */
+
+#namespacedeclarations {
+    margin-top: 2rem;
+}
+
+#namespacedeclarations table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#namespacedeclarations th,
+#namespacedeclarations td {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #d9dadb;
+    font-size: 0.85rem;
+    word-break: break-all;
+}
+
+#namespacedeclarations th {
+    background-color: #f6f7f9;
+    font-weight: 600;
+    color: #17324d;
+}
+
+/* ===== Code / pre blocks ===== */
+
+pre {
+    background-color: #f6f7f9;
+    border: 1px solid #d9dadb;
+    border-radius: 4px;
+    color: #17324d;
+    line-height: 1.4;
+    padding: 1rem;
+}
+
+.name {
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* ===== Endnote / footer ===== */
+
+.endnote {
+    margin-top: 3rem;
+    border-top: 1px solid #d9dadb;
+    padding-top: 1rem;
+    text-align: center;
+    color: #5c6f82;
+    font-size: 0.8rem;
+}
+
+/* ===== Image blocks ===== */
+
+.image {
+    text-align: center;
+}
+
+.image object,
+.image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.imageblock {
+    text-align: center;
+}
+
+.imageblock img {
+    border: 1px solid #d9dadb;
+    border-radius: 4px;
+}
+
+/* ===== Links — Bootstrap Italia palette ===== */
+
+a {
+    color: #0066cc;
+}
+
+a:hover {
+    color: #004d99;
+}
+
+/* ===== HR ===== */
+
+hr {
+    border: 0;
+    border-top: 2px solid #0066cc;
+    margin: 1.5rem 0;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 767.98px) {
+    .head h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .entity {
+        padding: 0.75rem;
+    }
+
+    .backlink {
+        float: none;
+        display: block;
+        margin-bottom: 0.5rem;
+        text-align: right;
+    }
+
+    .hlist li {
+        display: block;
+        padding: 0.15rem 0;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .head h1 {
+        font-size: 1.3rem;
+    }
+
+    .type-c, .type-op, .type-dp, .type-ap, .type-ni {
+        font-size: 0.6rem;
+    }
+}
