@@ -179,12 +179,10 @@
 				<div class="it-header-slim-wrapper" style="background-color: #0066cc;">
 					<div class="container">
 						<div class="row">
-							<div class="col-12">
-								<div class="it-header-slim-wrapper-content" style="padding: 0.4rem 0;">
-									<span style="color: #fff; font-size: 0.85rem;">
-										Schema - Catalogo Nazionale della Semantica dei Dati
-									</span>
-								</div>
+							<div class="col-12" style="padding: 0.8rem 0;">
+								<span style="color: #fff; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.02em;">
+									Schema &#x2014; Catalogo Nazionale della Semantica dei Dati
+								</span>
 							</div>
 						</div>
 					</div>
