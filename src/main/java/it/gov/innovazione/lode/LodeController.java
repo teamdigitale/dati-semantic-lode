@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "${cors.allowed-origins:}")
 public class LodeController {
 
     private static final Collection<String> ALLOWED_LANGS = List.of("it", "en", "de", "fr");
