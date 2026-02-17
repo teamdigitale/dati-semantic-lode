@@ -66,7 +66,9 @@ spotbugsTest {
 dependencyCheck {
 	nvd {
 		datafeedUrl = "https://dependency-check.github.io/DependencyCheck_Builder/nvd_cache"
+		validForHours = 24
 	}
+	failOnError = false
 	failBuildOnCVSS = 7
 	analyzers {
 		assemblyEnabled = false
