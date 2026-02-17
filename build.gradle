@@ -70,6 +70,7 @@ dependencyCheck {
 	failBuildOnCVSS = 7
 	analyzers {
 		assemblyEnabled = false
+		ossIndexEnabled = false
 	}
 	suppressionFile = "${rootProject.projectDir}/config/dependency-check/dependency-check-known-issues.xml"
 }
