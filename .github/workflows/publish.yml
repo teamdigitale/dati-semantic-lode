@@ -20,28 +20,17 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java-version: [21]
     steps:
       - name: checkout code
         uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: 21
           distribution: 'temurin'
-      - name: caching
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-      - name: Create Build Artifact
-        run: ./gradlew clean build
-      - name: SpotBugs Check
-        run: ./gradlew spotbugsMain spotbugsTest
+          cache: 'gradle'
+      - name: Build and test
+        run: ./gradlew --no-daemon clean build
   # Dependency check is configured in the build.gradle file,
   #  which includes quality gates and suppression rules.
   owasp:
@@ -54,8 +43,9 @@ jobs:
         with:
           java-version: 21
           distribution: 'temurin'
+          cache: 'gradle'
       - name: OWASP Dependency Check
-        run: ./gradlew dependencyCheckAnalyze
+        run: ./gradlew --no-daemon dependencyCheckAnalyze
   security:
     runs-on: ubuntu-latest
     steps:
