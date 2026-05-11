@@ -1,29 +1,29 @@
 # LODE (lode-ng)
 
-LODE (Live OWL Documentation Environment) genera automaticamente documentazione HTML navigabile a partire da ontologie OWL.
+LODE (*Live OWL Documentation Environment*) automatically generates navigable HTML documentation from OWL ontologies.
 
-Questo fork ([teamdigitale/dati-semantic-lode](https://github.com/teamdigitale/dati-semantic-lode)) modernizza il progetto originale [essepuntato/LODE](https://github.com/essepuntato/LODE) portandolo a:
+This fork ([teamdigitale/dati-semantic-lode](https://github.com/teamdigitale/dati-semantic-lode)) modernizes the upstream project [essepuntato/LODE](https://github.com/essepuntato/LODE) by porting it to:
 
 - **Java 21** (Eclipse Temurin)
-- **Spring Boot 3.x** con Tomcat embedded
-- **Gradle** come build system
-- Artifact JAR eseguibile con `java -jar` (niente Tomcat esterno)
+- **Spring Boot 3.x** with embedded Tomcat
+- **Gradle** as the build system
+- An executable JAR runnable with `java -jar` (no external Tomcat required)
 
-> **Nota per chi usa la versione originale con Tomcat:** le versioni precedenti di LODE richiedevano il deploy di un file WAR su un servlet container (Tomcat, Jetty). Questo fork utilizza Spring Boot con Tomcat embedded: è sufficiente eseguire `java -jar lode.jar`. Il deploy su un application server esterno **non è supportato né consigliato**.
-
----
-
-## Prerequisiti
-
-- Server Ubuntu 22.04+ (per installazione nativa) oppure Docker
+> **Note for users of the upstream version with Tomcat:** previous LODE releases required deploying a WAR onto a servlet container (Tomcat, Jetty). This fork uses Spring Boot with embedded Tomcat: running `java -jar lode.jar` is enough. Deployment to an external application server is **not supported nor recommended**.
 
 ---
 
-## Opzione 1: Docker (consigliata)
+## Prerequisites
 
-Le immagini ufficiali sono pubblicate su GitHub Container Registry. Questa è la modalità di installazione consigliata.
+- Ubuntu 22.04+ (for native installation) or Docker
 
-### 1.1 Installare Docker
+---
+
+## Option 1: Docker (recommended)
+
+Official images are published on GitHub Container Registry. This is the recommended installation mode.
+
+### 1.1 Install Docker
 
 ```bash
 sudo apt update
@@ -32,23 +32,23 @@ sudo systemctl enable docker
 sudo systemctl start docker
 ```
 
-### 1.2 Creare il file di environment
+### 1.2 Create the environment file
 
-Creare il file `lode.env` e **personalizzare i valori** in base al proprio ambiente:
+Create a `lode.env` file and **customize the values** for your environment:
 
 ```env
-# URL pubblico dove LODE è raggiungibile
-EXTERNAL_URL=<URL_PUBBLICO_LODE>
+# Public URL where LODE is reachable
+EXTERNAL_URL=<LODE_PUBLIC_URL>
 
-# URL di WebVOWL per la visualizzazione grafica delle ontologie
-# Se WebVOWL gira sullo stesso host, usare il suo URL pubblico
-WEBVOWL_URL=<URL_WEBVOWL>/#iri=
+# WebVOWL URL for graphical ontology visualization
+# If WebVOWL runs on the same host, use its public URL
+WEBVOWL_URL=<WEBVOWL_URL>/#iri=
 
-# Origini consentite per CORS (default: * = tutte)
+# Origins allowed for CORS (default: * = any)
 CORS_ALLOWED_ORIGINS=*
 ```
 
-### 1.3 Avviare il container
+### 1.3 Start the container
 
 ```bash
 docker run -d \
@@ -59,27 +59,27 @@ docker run -d \
   ghcr.io/teamdigitale/dati-semantic-lode:latest
 ```
 
-Verificare:
+Verify:
 
 ```bash
 docker logs lode
-# L'applicazione è disponibile su http://localhost:8080
+# The application is available on http://localhost:8080
 ```
 
 ---
 
-## Opzione 2: Installazione nativa con systemd
+## Option 2: Native installation with systemd
 
-Questa modalità prevede il build dai sorgenti e l'avvio come servizio di sistema.
+This mode builds from source and runs the service as a system service.
 
-### 2.1 Installare Java 21
+### 2.1 Install Java 21
 
 ```bash
 sudo apt update
 sudo apt install -y eclipse-temurin-21-jdk
 ```
 
-Se il pacchetto non è disponibile, aggiungere il repository Adoptium:
+If the package is not available, add the Adoptium repository:
 
 ```bash
 sudo apt install -y wget apt-transport-https gpg
@@ -89,14 +89,14 @@ sudo apt update
 sudo apt install -y temurin-21-jdk
 ```
 
-Verificare:
+Verify:
 
 ```bash
 java -version
 # openjdk version "21.x.x" ...
 ```
 
-### 2.2 Scaricare i sorgenti e buildare
+### 2.2 Fetch the sources and build
 
 ```bash
 sudo useradd -r -s /usr/sbin/nologin lode
@@ -105,40 +105,40 @@ cd /opt
 sudo git clone https://github.com/teamdigitale/dati-semantic-lode.git
 cd dati-semantic-lode
 
-# Build senza test
+# Build without tests
 sudo ./gradlew clean build -x test
 
-# Copiare l'artifact nella directory di installazione
+# Copy the artifact to the installation directory
 sudo mkdir -p /opt/lode
 sudo cp build/libs/lode.jar /opt/lode/lode.jar
 sudo chown -R lode:lode /opt/lode
 ```
 
-**(Opzionale)** Rimuovere i sorgenti dopo il build per liberare spazio:
+**(Optional)** Remove the sources after the build to save space:
 
 ```bash
 sudo rm -rf /opt/dati-semantic-lode
 ```
 
-### 2.3 Creare il file di environment
+### 2.3 Create the environment file
 
-Creare il file `/opt/lode/lode.env` e **personalizzare i valori** (il formato è lo stesso usato per Docker):
+Create `/opt/lode/lode.env` and **customize the values** (same format as for Docker):
 
 ```env
-# URL pubblico dove LODE è raggiungibile
-EXTERNAL_URL=<URL_PUBBLICO_LODE>
+# Public URL where LODE is reachable
+EXTERNAL_URL=<LODE_PUBLIC_URL>
 
-# URL di WebVOWL per la visualizzazione grafica delle ontologie
-# Se WebVOWL gira sullo stesso host, usare il suo URL pubblico
-WEBVOWL_URL=<URL_WEBVOWL>/#iri=
+# WebVOWL URL for graphical ontology visualization
+# If WebVOWL runs on the same host, use its public URL
+WEBVOWL_URL=<WEBVOWL_URL>/#iri=
 
-# Origini consentite per CORS (default: * = tutte)
+# Origins allowed for CORS (default: * = any)
 CORS_ALLOWED_ORIGINS=*
 ```
 
-### 2.4 Creare il file di servizio systemd
+### 2.4 Create the systemd unit file
 
-Creare il file `/etc/systemd/system/lode.service`:
+Create `/etc/systemd/system/lode.service`:
 
 ```ini
 [Unit]
@@ -161,45 +161,45 @@ RestartSec=10
 WantedBy=multi-user.target
 ```
 
-### 2.5 Avviare il servizio
+### 2.5 Start the service
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable lode
 sudo systemctl start lode
 
-# Verificare lo stato
+# Check status
 sudo systemctl status lode
 
-# Il servizio è disponibile su http://localhost:8080
+# The service is available on http://localhost:8080
 ```
 
 ---
 
-## Variabili d'ambiente
+## Environment variables
 
-| Variabile | Descrizione | Default |
+| Variable | Description | Default |
 |---|---|---|
-| `EXTERNAL_URL` | URL pubblico dove LODE è raggiungibile | vuoto |
-| `WEBVOWL_URL` | URL di WebVOWL per la visualizzazione grafica (es. `https://webvowl.example.com/#iri=`) | `/webvowl/#iri=` |
-| `CORS_ALLOWED_ORIGINS` | Origini consentite per CORS | `*` |
+| `EXTERNAL_URL` | Public URL where LODE is reachable | empty |
+| `WEBVOWL_URL` | WebVOWL URL for graphical visualization (e.g. `https://webvowl.example.com/#iri=`) | `/webvowl/#iri=` |
+| `CORS_ALLOWED_ORIGINS` | Origins allowed for CORS | `*` |
 
 ---
 
-## Nota per chi usa Apache HTTPD come reverse proxy
+## Note for users of Apache HTTPD as a reverse proxy
 
-Se si dispone già di un reverse proxy Apache HTTPD configurato per la versione precedente (Tomcat esterno), tenere presente che il modello architetturale è cambiato:
+If you already have an Apache HTTPD reverse proxy configured for the previous version (external Tomcat), keep in mind that the architectural model has changed:
 
-- **Prima:** Apache parlava con un unico processo Tomcat su una singola porta, smistando le richieste per path (es. `/lodview`, `/lode`, `/webvowl`).
-- **Ora:** ogni visualizzatore è un processo Spring Boot autonomo in ascolto sulla propria porta locale.
+- **Before:** Apache talked to a single Tomcat process on a single port, routing requests by path (e.g. `/lodview`, `/lode`, `/webvowl`).
+- **Now:** each visualizer is an autonomous Spring Boot process listening on its own local port.
 
-Tutte le applicazioni partono di default sulla porta **8080**. Se si eseguono più visualizzatori sulla stessa macchina, è necessario assegnare porte diverse tramite la variabile d'ambiente `SERVER_PORT` (vedi la [sezione porte](#porte) e il [README di LodView](https://github.com/teamdigitale/dati-semantic-lodview) per la tabella completa).
+All applications start on port **8080** by default. If you run multiple visualizers on the same machine you need to assign different ports via the `SERVER_PORT` environment variable (see the [ports section](#ports) and the [LodView README](https://github.com/teamdigitale/dati-semantic-lodview) for the full table).
 
-Apache può continuare a fare reverse proxy, ma il backend non è più un unico Tomcat condiviso.
+Apache can keep acting as a reverse proxy, but the backend is no longer a single shared Tomcat.
 
-### Virtual host dedicati
+### Dedicated virtual hosts
 
-Se si usa un dominio (o sottodominio) dedicato per ogni visualizzatore, la configurazione è minimale:
+If you use a dedicated domain (or subdomain) for each visualizer, the configuration is minimal:
 
 ```apache
 <VirtualHost *:443>
@@ -211,41 +211,47 @@ Se si usa un dominio (o sottodominio) dedicato per ogni visualizzatore, la confi
     RequestHeader set X-Forwarded-Proto "https"
     RequestHeader set X-Forwarded-Port "443"
 
-    # ... configurazione SSL ...
+    # ... SSL configuration ...
 </VirtualHost>
 ```
 
-### Path-based proxy (più visualizzatori sullo stesso dominio)
+### Path-based proxy (multiple visualizers on the same domain)
 
-Se si vogliono esporre più visualizzatori sotto path diversi dello stesso dominio, è necessario configurare `SERVER_PORT`, `SERVER_SERVLET_CONTEXT_PATH` e **aggiornare le variabili d'ambiente di LODE per riflettere gli URL pubblici effettivi**.
+If you want to expose multiple visualizers under different paths of the same domain, you need to configure `SERVER_PORT`, `SERVER_SERVLET_CONTEXT_PATH` and **update LODE's environment variables to reflect the effective public URLs**.
 
-Esempio di file `.env` per LODE in modalità path-based su `example.com`:
+Example `.env` file for LODE in path-based mode on `example.com`:
 
 ```env
 SERVER_PORT=8081
 SERVER_SERVLET_CONTEXT_PATH=/lode
 
-# IMPORTANTE: in modalità path-based, EXTERNAL_URL e WEBVOWL_URL
-# devono riflettere i path pubblici effettivi
+# IMPORTANT: in path-based mode, EXTERNAL_URL and WEBVOWL_URL
+# must reflect the effective public paths
 EXTERNAL_URL=https://example.com/lode
 WEBVOWL_URL=https://example.com/webvowl/#iri=
 
 CORS_ALLOWED_ORIGINS=*
 ```
 
-Configurazione Apache:
+Apache configuration:
 
 ```apache
 ProxyPass /lode http://localhost:8081/lode
 ProxyPassReverse /lode http://localhost:8081/lode
 ```
 
-> **Nota:** senza `SERVER_SERVLET_CONTEXT_PATH`, le applicazioni Spring Boot servono su `/` (root) e il path-based proxy non funzionerebbe correttamente. Per la configurazione Apache completa con tutti i visualizzatori, vedere il [README di LodView](https://github.com/teamdigitale/dati-semantic-lodview).
+> **Note:** without `SERVER_SERVLET_CONTEXT_PATH`, Spring Boot applications serve on `/` (root) and the path-based proxy would not work correctly. For the full Apache configuration covering all visualizers, see the [LodView README](https://github.com/teamdigitale/dati-semantic-lodview).
 
 ---
 
-## Porte
+## Ports
 
-| Porta | Protocollo | Descrizione |
+| Port | Protocol | Description |
 |---|---|---|
-| 8080 | HTTP | Interfaccia web LODE (default, configurabile con `SERVER_PORT`) |
+| 8080 | HTTP | LODE web interface (default, configurable via `SERVER_PORT`) |
+
+---
+
+## License
+
+This project is released under the **GNU Affero General Public License v3.0 or later**. A copy of the license is available in [`LICENSE`](./LICENSE).
